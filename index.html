@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            height: 100vh;
+            width: 100%;
+            border: 5px solid greenyellow;
+        }
+        #main_div{
+            text-align: center;;
+            margin: 20vh auto;
+            padding: 20px;
+            border: 2px solid #666;
+            width: 30%;
+            height: 300px;
+
+            border-radius: 10px;
+            box-shadow: -5px 5px greenyellow,-10px 10px #3c3;
+        }
+        .cc{
+            text-align: center;;
+        }
+        .pT{
+            color: #0c0;
+        }
+        .pF{
+            color: #f66;
+        }
+        /* .sub{
+            border-radius: 25px;
+            height: 50px;
+            width: 50px;
+        } */
+        #number0{
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <script type="text/javascript">
+        var arr_num = [7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
+        //输入的每一位数字乘以arr_num中相应的数字
+        var arr_con = ['1','0','X','9','8','7','6','5','4','3','2'];
+        //arr_ con为验证数组（身份证的最后一位）
+        function numbers() {
+
+            var num_in = document.getElementById('number0').value;
+            var arr_in = num_in.split('');
+            var sum=99,num_d=99,num_end=99;
+            
+            if(arr_in.length !=18){
+                alert("请输入18位身份证！"+" 该数字长度为："+arr_in.length);
+                num_d = '错误';
+                num_end = '错误';
+                // span.class
+            }else{
+                for(var i=0;i<17;i++){
+                sum += (arr_num[i] * Number(arr_in[i]));
+                }
+                num_d = sum % 11;
+            }
+
+            for(var j=0;j<10;j++){
+                if(num_d == j){
+                    num_end = arr_con[j];
+                }
+            }
+            var tf = document.getElementById('TorF');
+            if(arr_in[17] == num_end){
+                //判断输入的第十八位数字和计算出的数字是否一致
+                tf.innerHTML = "身份证正确。";
+                tf.className = 'pT';
+
+            }else{
+                tf.innerHTML = "身份证错误。";
+                tf.className = 'pF';
+                console.log(num_end,arr_in[17]);
+            }
+
+            // document.getElementById('num_d').innerHTML = num_d;
+            document.getElementById('num_end').innerHTML = num_end;
+
+            console.log("余数:",num_d,"计算出的最后一位:",num_end);
+            console.log('身份证长度位为：',arr_in.length);//开发调试
+
+        }
+    </script>
+    
+    <div id="main_div">
+        <p class="cc">请输入身份证号码:</p>
+        <input type="text" id="number0" >
+        <input type="submit" class="sub" onclick="numbers()" value="提交">
+        <!-- <p>余数为：
+            <span id="num_d" value="00">test</span>
+        </p> -->
+        <p>
+            身份证最后一位应为：<span id="num_end" value="00"></span>
+        </p>
+        <p id="TorF" class="pT"></p>
+    </div>
+</body>
+</html>
